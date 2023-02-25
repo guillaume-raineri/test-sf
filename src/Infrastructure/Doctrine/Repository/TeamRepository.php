@@ -8,7 +8,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Team|null find($id, $lockMode = null, $lockVersion = null)
  * @method Team|null findOneBy(array $criteria, array $orderBy = null)
  * @method Team[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
@@ -19,10 +18,20 @@ class TeamRepository extends ServiceEntityRepository implements DomainTeamReposi
         parent::__construct($registry, Team::class);
     }
 
-    public function create(Team $team): void
+    public function get(string $id): Team|null
+    {
+        return $this->find($id);
+    }
+
+    public function save(Team $team): void
     {
         $this->_em->persist($team);
         $this->_em->flush();
+    }
+
+    public function create(Team $team): void
+    {
+        $this->save($team);
     }
 
     /**

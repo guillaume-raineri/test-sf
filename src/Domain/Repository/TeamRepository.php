@@ -6,6 +6,10 @@ use App\Domain\Entity\Team;
 
 interface TeamRepository
 {
+    public function get(string $id): Team|null;
+
+    public function save(Team $team): void;
+
     public function create(Team $team): void;
 
     /**

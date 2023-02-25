@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\UseCase\Team;
+namespace App\Tests\UseCase\Team\Command;
 
 use App\Infrastructure\Symfony\Command\Team\Command\CreateTeamCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;

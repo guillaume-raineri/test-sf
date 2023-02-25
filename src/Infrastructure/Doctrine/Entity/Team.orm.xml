@@ -8,5 +8,6 @@
         <id name="id" type="uuid" column="id">
         </id>
         <field name="name" column="name" type="string" length="255" nullable="false" unique="true"/>
+        <one-to-many field="players" target-entity="Player" mapped-by="team" />
     </entity>
 </doctrine-mapping>

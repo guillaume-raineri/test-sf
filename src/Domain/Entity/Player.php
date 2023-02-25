@@ -11,6 +11,8 @@ class Player
 
     private string $name;
 
+    private Team|null $team = null;
+
     /**
      * @throws ValidationException
      */
@@ -31,5 +33,24 @@ class Player
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTeam(): Team|null
+    {
+        return $this->team;
+    }
+
+    public function setTeam(Team|null $team): self
+    {
+        $this->team = $team;
+
+        return $this;
     }
 }
