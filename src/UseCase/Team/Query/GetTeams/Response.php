@@ -13,7 +13,7 @@ final class Response
     /**
      * @return array<Team>
      */
-    public function getPlayers(): array
+    public function getTeams(): array
     {
         return $this->teams;
     }

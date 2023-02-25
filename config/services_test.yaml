@@ -11,3 +11,7 @@ services:
     usecase.team.create:
         alias: App\UseCase\Team\Command\CreateTeam\UseCase
         public: true
+
+    usecase.team.list:
+        alias: App\UseCase\Team\Query\GetTeams\UseCase
+        public: true

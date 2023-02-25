@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Player;
+namespace App\Tests\Unit\Player\Query;
 
 use App\Domain\Exception\ValidationException;
 use App\UseCase\Player\Command\CreatePlayer\Request;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Team;
+namespace App\Tests\Unit\Team\Command;
 
 use App\Domain\Exception\ValidationException;
 use App\UseCase\Team\Command\CreateTeam\Request;
