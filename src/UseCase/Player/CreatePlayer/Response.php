@@ -10,9 +10,6 @@ class Response
     {
     }
 
-    /**
-     * @return Uuid
-     */
     public function getId(): Uuid
     {
         return $this->id;

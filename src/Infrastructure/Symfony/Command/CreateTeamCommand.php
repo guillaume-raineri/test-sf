@@ -19,7 +19,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 )]
 final class CreateTeamCommand extends Command
 {
-    public const COMMAND_NAME = "app:team:create";
+    public const COMMAND_NAME = 'app:team:create';
     public const ARGUMENT_TEAM_NAME = 'name';
 
     public function __construct(private readonly UseCase $useCase)
@@ -34,15 +34,16 @@ final class CreateTeamCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-
         $io = new SymfonyStyle($input, $output);
         try {
             $response = ($this->useCase)(new Request($input->getArgument(self::ARGUMENT_TEAM_NAME)));
         } catch (ValidationException $validation) {
             $io->error($validation->getMessage());
+
             return Command::FAILURE;
         }
-        $io->success('Team has been created. Id is : ' . $response->getId());
+        $io->success('Team has been created. Id is : '.$response->getId());
+
         return Command::SUCCESS;
     }
 }

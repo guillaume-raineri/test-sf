@@ -13,8 +13,5 @@ interface TeamRepository
      */
     public function findAll(): array;
 
-    /**
-     * @return bool
-     */
     public function exists(string $name): bool;
 }

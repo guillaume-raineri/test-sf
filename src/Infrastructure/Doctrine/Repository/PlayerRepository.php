@@ -29,6 +29,6 @@ class PlayerRepository extends ServiceEntityRepository implements \App\Domain\Re
      */
     public function findAll(): array
     {
-        return $this->findBy(array());
+        return $this->findBy([]);
     }
 }

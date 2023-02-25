@@ -17,27 +17,27 @@ use Symfony\Component\Console\Output\OutputInterface;
 )]
 final class GetPlayersCommand extends Command
 {
-    public const COMMAND_NAME = "app:player:list";
+    public const COMMAND_NAME = 'app:player:list';
 
     public function __construct(private readonly UseCase $useCase)
     {
         parent::__construct();
     }
 
-
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $response = ($this->useCase)(new Request());
 
         $table = new Table($output);
-        $rows = array();
+        $rows = [];
         foreach ($response->getPlayers() as $player) {
-            $rows[] = array($player->getId(), $player->getName());
+            $rows[] = [$player->getId(), $player->getName()];
         }
         $table
             ->setHeaders(['Id', 'Name'])
             ->setRows($rows);
         $table->render();
+
         return Command::SUCCESS;
     }
 }

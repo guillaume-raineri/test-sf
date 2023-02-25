@@ -3,9 +3,9 @@
 namespace App\Infrastructure\Doctrine\Repository;
 
 use App\Domain\Entity\Team;
+use App\Domain\Repository\TeamRepository as DomainTeamRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Domain\Repository\TeamRepository as DomainTeamRepository;
 
 /**
  * @method Team|null find($id, $lockMode = null, $lockVersion = null)
