@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Infrastructure\Symfony\Command;
+namespace App\Infrastructure\Symfony\Command\Player\Query;
 
-use App\UseCase\Player\GetPlayers\Request;
-use App\UseCase\Player\GetPlayers\UseCase;
+use App\UseCase\Player\Query\GetPlayers\Request;
+use App\UseCase\Player\Query\GetPlayers\UseCase;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

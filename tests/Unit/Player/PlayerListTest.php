@@ -3,9 +3,9 @@
 namespace App\Tests\Unit\Player;
 
 use App\Domain\Entity\Player;
-use App\UseCase\Player\CreatePlayer\Request;
-use App\UseCase\Player\GetPlayers\Request as RequestList;
-use App\UseCase\Player\GetPlayers\Response as ResponseList;
+use App\UseCase\Player\Command\CreatePlayer\Request;
+use App\UseCase\Player\Query\GetPlayers\Request as RequestList;
+use App\UseCase\Player\Query\GetPlayers\Response as ResponseList;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class PlayerListTest extends KernelTestCase

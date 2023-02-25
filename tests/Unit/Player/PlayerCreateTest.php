@@ -3,8 +3,8 @@
 namespace App\Tests\Unit\Player;
 
 use App\Domain\Exception\ValidationException;
-use App\UseCase\Player\CreatePlayer\Request;
-use App\UseCase\Player\CreatePlayer\Response;
+use App\UseCase\Player\Command\CreatePlayer\Request;
+use App\UseCase\Player\Command\CreatePlayer\Response;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class PlayerCreateTest extends KernelTestCase

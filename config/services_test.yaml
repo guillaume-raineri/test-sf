@@ -1,13 +1,13 @@
 services:
 
     usecase.player.create:
-        alias: App\UseCase\Player\CreatePlayer\UseCase
+        alias: App\UseCase\Player\Command\CreatePlayer\UseCase
         public: true
 
     usecase.player.list:
-        alias: App\UseCase\Player\GetPlayers\UseCase
+        alias: App\UseCase\Player\Query\GetPlayers\UseCase
         public: true
 
     usecase.team.create:
-        alias: App\UseCase\Team\CreateTeam\UseCase
+        alias: App\UseCase\Team\Command\CreateTeam\UseCase
         public: true

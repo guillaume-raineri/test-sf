@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Infrastructure\Symfony\Command;
+namespace App\Infrastructure\Symfony\Command\Player\Command;
 
 use App\Domain\Exception\ValidationException;
-use App\UseCase\Team\CreateTeam\Request;
-use App\UseCase\Team\CreateTeam\UseCase;
+use App\UseCase\Player\Command\CreatePlayer\Request;
+use App\UseCase\Player\Command\CreatePlayer\UseCase;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,13 +14,13 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand(
     name: self::COMMAND_NAME,
-    description: 'Creates a new team.',
+    description: 'Creates a new player.',
     hidden: false
 )]
-final class CreateTeamCommand extends Command
+final class CreatePlayerCommand extends Command
 {
-    public const COMMAND_NAME = 'app:team:create';
-    public const ARGUMENT_TEAM_NAME = 'name';
+    public const COMMAND_NAME = 'app:player:create';
+    public const ARGUMENT_PLAYER_NAME = 'name';
 
     public function __construct(private readonly UseCase $useCase)
     {
@@ -29,20 +29,20 @@ final class CreateTeamCommand extends Command
 
     protected function configure(): void
     {
-        $this->addArgument(self::ARGUMENT_TEAM_NAME, InputArgument::REQUIRED, 'The name of the team.');
+        $this->addArgument(self::ARGUMENT_PLAYER_NAME, InputArgument::REQUIRED, 'The name of the player.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
         try {
-            $response = ($this->useCase)(new Request($input->getArgument(self::ARGUMENT_TEAM_NAME)));
+            $response = ($this->useCase)(new Request($input->getArgument(self::ARGUMENT_PLAYER_NAME)));
         } catch (ValidationException $validation) {
             $io->error($validation->getMessage());
 
             return Command::FAILURE;
         }
-        $io->success('Team has been created. Id is : '.$response->getId());
+        $io->success('Player has been created. Id is : '.$response->getId());
 
         return Command::SUCCESS;
     }

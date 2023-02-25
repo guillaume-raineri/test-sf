@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\Player\GetPlayers;
+namespace App\UseCase\Player\Query\GetPlayers;
 
 use App\Domain\Repository\PlayerRepository;
 

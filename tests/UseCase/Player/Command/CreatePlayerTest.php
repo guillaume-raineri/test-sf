@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Tests\UseCase\Player;
+namespace App\Tests\UseCase\Player\Command;
 
-use App\Infrastructure\Symfony\Command\CreatePlayerCommand;
+use App\Infrastructure\Symfony\Command\Player\Command\CreatePlayerCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\Player\CreatePlayer;
+namespace App\UseCase\Team\Command\CreateTeam;
 
 use Symfony\Component\Uid\Uuid;
 

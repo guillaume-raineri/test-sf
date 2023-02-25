@@ -3,8 +3,8 @@
 namespace App\Tests\Unit\Team;
 
 use App\Domain\Exception\ValidationException;
-use App\UseCase\Team\CreateTeam\Request;
-use App\UseCase\Team\CreateTeam\Response;
+use App\UseCase\Team\Command\CreateTeam\Request;
+use App\UseCase\Team\Command\CreateTeam\Response;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class TeamCreateTest extends KernelTestCase

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\Team\CreateTeam;
+namespace App\UseCase\Team\Command\CreateTeam;
 
 final class Request
 {
