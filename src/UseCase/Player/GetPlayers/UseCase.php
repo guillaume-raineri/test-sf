@@ -10,7 +10,7 @@ final class UseCase
     {
     }
 
-    public function execute(Request $request): Response
+    public function __invoke(Request $request): Response
     {
         return new Response($this->playerRepository->findAll());
     }

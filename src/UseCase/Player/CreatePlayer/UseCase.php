@@ -16,7 +16,7 @@ class UseCase
     /**
      * @throws ValidationException
      */
-    public function execute(Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $this->playerRepository->create($player = (new Player(Uuid::v4(), $request->getName())));
         return new Response($player->getId());

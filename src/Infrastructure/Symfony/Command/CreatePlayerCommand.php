@@ -37,7 +37,7 @@ final class CreatePlayerCommand extends Command
 
         $io = new SymfonyStyle($input, $output);
         try {
-            $response = $this->useCase->execute(new Request($input->getArgument(self::ARGUMENT_PLAYER_NAME)));
+            $response = ($this->useCase)(new Request($input->getArgument(self::ARGUMENT_PLAYER_NAME)));
         } catch (ValidationException $validation) {
             $io->error($validation->getMessage());
             return Command::FAILURE;

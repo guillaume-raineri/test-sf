@@ -27,7 +27,7 @@ final class GetPlayersCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $response = $this->useCase->execute(new Request());
+        $response = ($this->useCase)(new Request());
 
         $table = new Table($output);
         $rows = array();
