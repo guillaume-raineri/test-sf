@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\UseCase;
+namespace App\Tests\UseCase\Player;
 
 use App\Infrastructure\Symfony\Command\GetPlayersCommand;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
@@ -17,7 +17,7 @@ class GetPlayersTest extends KernelTestCase
 
         $command = $application->find(GetPlayersCommand::COMMAND_NAME);
         $commandTester = new CommandTester($command);
-        $r = $commandTester->execute(array());
+        $r = $commandTester->execute([]);
         $this->assertSame(Command::SUCCESS, $r);
     }
 }
