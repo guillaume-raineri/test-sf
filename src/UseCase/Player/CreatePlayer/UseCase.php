@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\CreatePlayer;
+namespace App\UseCase\Player\CreatePlayer;
 
 use App\Domain\Entity\Player;
 use App\Domain\Exception\ValidationException;

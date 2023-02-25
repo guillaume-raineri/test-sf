@@ -2,8 +2,8 @@
 
 namespace App\Infrastructure\Symfony\Command;
 
-use App\UseCase\GetPlayers\Request;
-use App\UseCase\GetPlayers\UseCase;
+use App\UseCase\Player\GetPlayers\Request;
+use App\UseCase\Player\GetPlayers\UseCase;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;

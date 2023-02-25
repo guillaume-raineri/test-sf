@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\GetPlayers;
+namespace App\UseCase\Player\GetPlayers;
 
 use App\Domain\Entity\Player;
 

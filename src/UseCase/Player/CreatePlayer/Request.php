@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCase\CreatePlayer;
+namespace App\UseCase\Player\CreatePlayer;
 
 final class Request
 {

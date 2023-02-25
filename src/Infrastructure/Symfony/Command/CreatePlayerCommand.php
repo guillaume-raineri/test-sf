@@ -3,13 +3,12 @@
 namespace App\Infrastructure\Symfony\Command;
 
 use App\Domain\Exception\ValidationException;
-use App\UseCase\CreatePlayer\Request;
-use App\UseCase\CreatePlayer\UseCase;
+use App\UseCase\Player\CreatePlayer\Request;
+use App\UseCase\Player\CreatePlayer\UseCase;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\ConsoleOutputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
