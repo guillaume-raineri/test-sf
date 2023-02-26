@@ -8,9 +8,9 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class zCreatePlayerTest extends KernelTestCase
+class CreatePlayerTest extends KernelTestCase
 {
-    public function testExecute(): void
+    public function testCreatePlayerOK(): void
     {
         $kernel = self::bootKernel();
         $application = new Application($kernel);

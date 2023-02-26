@@ -2,35 +2,51 @@
 
 namespace App\Tests\UseCase\Team\Command;
 
+use App\Domain\Entity\Team;
 use App\Infrastructure\Symfony\Command\Team\Command\CreateTeamCommand;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Uid\Uuid;
 
 class CreateTeamTest extends KernelTestCase
 {
-    public function testExecute(): void
-    {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
+    private EntityManagerInterface|null $em = null;
+    private CommandTester|null $commandTester = null;
+    private Team|null $team = null;
 
+    public function setUp(): void
+    {
+        static::$kernel = static::createKernel();
+        static::$kernel->boot();
+
+        $application = new Application(static::$kernel);
         $command = $application->find(CreateTeamCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
-            CreateTeamCommand::ARGUMENT_TEAM_NAME => 'RCSA',
+        $this->commandTester = new CommandTester($command);
+
+        /** @var EntityManagerInterface $em */
+        $em = static::$kernel->getContainer()->get('doctrine.orm.entity_manager');
+        $this->em = $em;
+
+        $this->team = new Team(Uuid::v4(), 'RCSA');
+
+        $this->em->persist($this->team);
+        $this->em->flush();
+    }
+
+    public function testCreateTeamOK(): void
+    {
+        $r = $this->commandTester->execute([
+            CreateTeamCommand::ARGUMENT_TEAM_NAME => 'PSG',
         ]);
         $this->assertSame(Command::SUCCESS, $r);
     }
 
     public function testNotWorkingWithMoreThan255Characters(): void
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
-
-        $command = $application->find(CreateTeamCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
+        $r = $this->commandTester->execute([
             CreateTeamCommand::ARGUMENT_TEAM_NAME => 'm46vsiOVh8f0d91SRtHxLd6q6L7l3skghubbLohDhdoUiUUMD1tOU8ijuqPV1SDcr4IuWZ6s7zE2nkSZb8n0SBj9uOodybXeHuqVaMDXCIIjcder3piE9ZrxVNUktEgh7fqbPHQhwBYsjjqg4v2vEXVQWUSpu4aMtxrXuqrRlKvsGTc4IqTs6MomFeqOByJB0NTYD3v1kMiR6xUem4BllRAYw67tnWCA2tFCAy3ifOpvI9Rnfvyn8MdBVtVVmyNR',
         ]);
         $this->assertSame(Command::FAILURE, $r);
@@ -38,24 +54,12 @@ class CreateTeamTest extends KernelTestCase
 
     public function testTeamNameAlreadyExists(): void
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
-
-        // Insert it once
-        $command = $application->find(CreateTeamCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
+        $r = $this->commandTester->execute([
             CreateTeamCommand::ARGUMENT_TEAM_NAME => 'RCSA',
         ]);
-
-        // Insert it twice
-        $r = $commandTester->execute([
-            CreateTeamCommand::ARGUMENT_TEAM_NAME => 'RCSA',
-        ]);
-
-        $output = $commandTester->getDisplay();
 
         // Assert that the team already exists
+        $output = $this->commandTester->getDisplay();
         $this->assertStringContainsString('This team name is already used', $output);
 
         $this->assertSame(Command::FAILURE, $r);

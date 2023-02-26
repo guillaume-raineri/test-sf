@@ -14,43 +14,46 @@ use Symfony\Component\Uid\Uuid;
 
 class AddPlayerTest extends KernelTestCase
 {
-    public function testAddPlayerToTeamOK(): void
+    private EntityManagerInterface|null $em = null;
+    private CommandTester|null $commandTester = null;
+    private Team|null $team = null;
+    private Player|null $player = null;
+
+    protected function setUp(): void
     {
         $kernel = self::bootKernel();
         $application = new Application($kernel);
 
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-
-        $team = new Team(Uuid::v4(), 'RCSA');
-        $player = new Player(Uuid::v4(), 'Guillaume');
-
-        $entityManager->persist($team);
-        $entityManager->persist($player);
-        $entityManager->flush();
-
         $command = $application->find(AddPlayerCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
-            AddPlayerCommand::ARGUMENT_TEAM_ID => $team->getId(),
-            AddPlayerCommand::ARGUMENT_PLAYER_ID => $player->getId(),
+        $this->commandTester = new CommandTester($command);
+
+        $this->em = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $this->team = new Team(Uuid::v4(), 'RCSA');
+        $this->player = new Player(Uuid::v4(), 'Guillaume');
+
+        $this->em->persist($this->team);
+        $this->em->persist($this->player);
+        $this->em->flush();
+    }
+
+    public function testAddPlayerToTeamOK(): void
+    {
+        $r = $this->commandTester->execute([
+            AddPlayerCommand::ARGUMENT_TEAM_ID => $this->team->getId(),
+            AddPlayerCommand::ARGUMENT_PLAYER_ID => $this->player->getId(),
         ]);
         $this->assertSame(Command::SUCCESS, $r);
     }
 
     public function testAddPlayerReturnsBadRequestOnBadUuid(): void
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
-
-        $command = $application->find(AddPlayerCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
+        $r = $this->commandTester->execute([
             AddPlayerCommand::ARGUMENT_TEAM_ID => 'bad uuid',
             AddPlayerCommand::ARGUMENT_PLAYER_ID => 'bad_uuid',
         ]);
 
-        $output = $commandTester->getDisplay();
+        $output = $this->commandTester->getDisplay();
 
         $this->assertStringContainsString('Bad request.', $output);
 
@@ -59,27 +62,12 @@ class AddPlayerTest extends KernelTestCase
 
     public function testAddPlayerTeamNotFound(): void
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
-
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-
-        $team = new Team(Uuid::v4(), 'RCSA');
-        $player = new Player(Uuid::v4(), 'Guillaume');
-
-        $entityManager->persist($team);
-        $entityManager->persist($player);
-        $entityManager->flush();
-
-        $command = $application->find(AddPlayerCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
+        $r = $this->commandTester->execute([
             AddPlayerCommand::ARGUMENT_TEAM_ID => Uuid::v4(),
-            AddPlayerCommand::ARGUMENT_PLAYER_ID => $player->getId(),
+            AddPlayerCommand::ARGUMENT_PLAYER_ID => $this->player->getId(),
         ]);
 
-        $output = $commandTester->getDisplay();
+        $output = $this->commandTester->getDisplay();
 
         $this->assertStringContainsString('Team not found.', $output);
 
@@ -88,27 +76,11 @@ class AddPlayerTest extends KernelTestCase
 
     public function testAddPlayerPlayerNotFound(): void
     {
-        $kernel = self::bootKernel();
-        $application = new Application($kernel);
-
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-
-        $team = new Team(Uuid::v4(), 'RCSA');
-        $player = new Player(Uuid::v4(), 'Guillaume');
-
-        $entityManager->persist($team);
-        $entityManager->persist($player);
-        $entityManager->flush();
-
-        $command = $application->find(AddPlayerCommand::COMMAND_NAME);
-        $commandTester = new CommandTester($command);
-        $r = $commandTester->execute([
-            AddPlayerCommand::ARGUMENT_TEAM_ID => $team->getId(),
+        $r = $this->commandTester->execute([
+            AddPlayerCommand::ARGUMENT_TEAM_ID => $this->team->getId(),
             AddPlayerCommand::ARGUMENT_PLAYER_ID => Uuid::v4(),
         ]);
-
-        $output = $commandTester->getDisplay();
+        $output = $this->commandTester->getDisplay();
 
         $this->assertStringContainsString('Player not found.', $output);
 

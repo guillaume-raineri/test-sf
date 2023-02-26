@@ -2,6 +2,7 @@
 
 namespace App\UseCase\Team\Command\AddPlayer;
 
+use App\Domain\Exception\NotFoundException;
 use App\Domain\Exception\ValidationException;
 use App\Domain\Repository\PlayerRepository;
 use App\Domain\Repository\TeamRepository;
@@ -16,9 +17,6 @@ class UseCase
     ) {
     }
 
-    /**
-     * @throws ValidationException
-     */
     public function __invoke(Request $request): Response
     {
         try {
@@ -30,12 +28,12 @@ class UseCase
 
         $team = $this->teamRepository->get($teamId);
         if (null === $team) {
-            throw new ValidationException('Team not found.');
+            throw new NotFoundException('Team not found.');
         }
 
         $player = $this->playerRepository->get($playerId);
         if (null === $player) {
-            throw new ValidationException('Player not found.');
+            throw new NotFoundException('Player not found.');
         }
 
         $team->addPlayer($player);

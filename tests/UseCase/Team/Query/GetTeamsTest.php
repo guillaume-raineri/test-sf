@@ -10,7 +10,7 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class GetTeamsTest extends KernelTestCase
 {
-    public function testExecute(): void
+    public function testGetTeams(): void
     {
         $kernel = self::bootKernel();
         $application = new Application($kernel);

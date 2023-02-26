@@ -2,9 +2,9 @@
 
 namespace App\Infrastructure\Symfony\Command\Team\Command;
 
-use App\Domain\Exception\ValidationException;
 use App\UseCase\Team\Command\AddPlayer\Request;
 use App\UseCase\Team\Command\AddPlayer\UseCase;
+use Exception;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -44,7 +44,7 @@ final class AddPlayerCommand extends Command
                     $input->getArgument(self::ARGUMENT_PLAYER_ID),
                 )
             );
-        } catch (ValidationException $validation) {
+        } catch (Exception $validation) {
             $io->error($validation->getMessage());
 
             return Command::FAILURE;
