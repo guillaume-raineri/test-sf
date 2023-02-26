@@ -12,7 +12,7 @@
 ### Installation
 
 ```bash
-git clone https://sportyma_jzirnheld@bitbucket.org/sportyma/test_symfony_lvl_2.git
+git clone git@github.com:guillaume-raineri/test-sf.git
 make install
 # Take a cup of coffee... ;)
 ```

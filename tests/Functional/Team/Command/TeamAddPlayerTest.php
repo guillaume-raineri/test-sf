@@ -39,7 +39,7 @@ class TeamAddPlayerTest extends KernelTestCase
         $this->useCase = static::$kernel->getContainer()->get('usecase.team.player.add');
     }
 
-    public function testTeamCreationOK(): void
+    public function testTeamCreationOk(): void
     {
         $teamAddPlayer = new Request($this->team->getId(), $this->player->getId());
 

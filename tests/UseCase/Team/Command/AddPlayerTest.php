@@ -37,7 +37,7 @@ class AddPlayerTest extends KernelTestCase
         $this->em->flush();
     }
 
-    public function testAddPlayerToTeamOK(): void
+    public function testAddPlayerToTeamOk(): void
     {
         $r = $this->commandTester->execute([
             AddPlayerCommand::ARGUMENT_TEAM_ID => $this->team->getId(),

@@ -39,7 +39,7 @@ class CreateGameTest extends KernelTestCase
         $this->em->flush();
     }
 
-    public function testCreateGameOK(): void
+    public function testCreateGameOk(): void
     {
         $r = $this->commandTester->execute([
             CreateGameCommand::ARGUMENT_GAME_NAME => 'game name',

@@ -37,7 +37,7 @@ class GameCreateTest extends KernelTestCase
         $this->useCase = static::$kernel->getContainer()->get('usecase.game.create');
     }
 
-    public function testTeamCreationOK(): void
+    public function testTeamCreationOk(): void
     {
         $createGameRequest = new Request('test game', $this->homeTeam->getId(), $this->awayTeam->getId());
 

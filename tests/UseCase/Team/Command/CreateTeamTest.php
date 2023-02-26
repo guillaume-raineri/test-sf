@@ -36,7 +36,7 @@ class CreateTeamTest extends KernelTestCase
         $this->em->flush();
     }
 
-    public function testCreateTeamOK(): void
+    public function testCreateTeamOk(): void
     {
         $r = $this->commandTester->execute([
             CreateTeamCommand::ARGUMENT_TEAM_NAME => 'PSG',

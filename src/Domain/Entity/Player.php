@@ -19,10 +19,7 @@ class Player
     public function __construct(Uuid $id, string $name)
     {
         $this->id = $id;
-        if (mb_strlen($name) > 255) {
-            throw new ValidationException('Name must have less than 255 characters.');
-        }
-        $this->name = $name;
+        $this->setName($name);
     }
 
     public function getId(): Uuid
@@ -37,6 +34,10 @@ class Player
 
     public function setName(string $name): self
     {
+        if (mb_strlen($name) > 255) {
+            throw new ValidationException('Name must have less than 255 characters.');
+        }
+
         $this->name = $name;
 
         return $this;

@@ -34,7 +34,7 @@ class TeamCreateTest extends KernelTestCase
         $this->useCase = static::$kernel->getContainer()->get('usecase.team.create');
     }
 
-    public function testTeamCreationOK(): void
+    public function testTeamCreationOk(): void
     {
         $teamCreateRequest = new Request('PSG');
 

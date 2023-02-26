@@ -33,6 +33,16 @@ class PlayerTest extends TestCase
         $this->assertSame($newName, $player->getName());
     }
 
+    public function testSetNameThrowsValidationException(): void
+    {
+        $player = new Player(Uuid::v4(), 'a');
+
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Name must have less than 255 characters.');
+
+        $player->setName(str_repeat('a', 256));
+    }
+
     public function testSetTeam(): void
     {
         $id = Uuid::v4();
@@ -55,16 +65,5 @@ class PlayerTest extends TestCase
         $player->setTeam(null);
 
         $this->assertNull($player->getTeam());
-    }
-
-    public function testSetNameThrowsValidationException(): void
-    {
-        $id = Uuid::v4();
-        $name = str_repeat('a', 256);
-
-        $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('Name must have less than 255 characters.');
-
-        new Player($id, $name);
     }
 }

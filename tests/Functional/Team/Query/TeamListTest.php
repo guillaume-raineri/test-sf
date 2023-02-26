@@ -31,7 +31,7 @@ class TeamListTest extends KernelTestCase
         $this->assertInstanceOf(ResponseList::class, $response);
     }
 
-    public function testListNoEmpty(): void
+    public function testListNotEmpty(): void
     {
         $kernel = self::bootKernel();
 
