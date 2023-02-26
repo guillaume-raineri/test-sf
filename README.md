@@ -30,3 +30,7 @@ When you want stop stack, use ```make stop```
 ### More
 
 More commands are available with ```make ```
+
+## Run tests
+ - Run fixtures with `php bin/console doctrine:fixtures:load`
+ - Run `./vendor/bin/simple-phpunit`

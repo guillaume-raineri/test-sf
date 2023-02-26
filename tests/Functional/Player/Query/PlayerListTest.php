@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Player\Query;
+namespace App\Tests\Functional\Player\Query;
 
 use App\Domain\Entity\Player;
 use App\UseCase\Player\Command\CreatePlayer\Request;

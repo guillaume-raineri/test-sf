@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Team\Command;
+namespace App\Tests\Functional\Team\Command;
 
 use App\Domain\Entity\Team;
 use App\Domain\Exception\ValidationException;

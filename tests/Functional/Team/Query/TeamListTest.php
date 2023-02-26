@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Team\Query;
+namespace App\Tests\Functional\Team\Query;
 
 use App\Domain\Entity\Team;
 use App\UseCase\Team\Command\CreateTeam\Request;

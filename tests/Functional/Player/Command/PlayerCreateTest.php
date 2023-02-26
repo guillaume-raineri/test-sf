@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Player\Command;
+namespace App\Tests\Functional\Player\Command;
 
 use App\Domain\Exception\ValidationException;
 use App\UseCase\Player\Command\CreatePlayer\Request;

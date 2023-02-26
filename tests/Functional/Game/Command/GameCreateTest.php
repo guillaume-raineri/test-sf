@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Game\Command;
+namespace App\Tests\Functional\Game\Command;
 
 use App\Domain\Entity\Team;
 use App\Domain\Exception\NotFoundException;
