@@ -14,6 +14,8 @@ class Team
     private string $name;
 
     private Collection $players;
+    private Collection $homeGames;
+    private Collection $awayGames;
 
     /**
      * @throws ValidationException
@@ -26,6 +28,8 @@ class Team
         }
         $this->name = $name;
         $this->players = new ArrayCollection();
+        $this->homeGames = new ArrayCollection();
+        $this->awayGames = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -64,5 +68,37 @@ class Team
         }
 
         return $this;
+    }
+
+    public function getHomeGames(): Collection
+    {
+        return $this->homeGames;
+    }
+
+    public function setHomeGames(Collection $homeGames): self
+    {
+        $this->homeGames = $homeGames;
+
+        return $this;
+    }
+
+    public function getAwayGames(): Collection
+    {
+        return $this->awayGames;
+    }
+
+    public function setAwayGames(Collection $awayGames): self
+    {
+        $this->awayGames = $awayGames;
+
+        return $this;
+    }
+
+    /**
+     * @return Game[]
+     */
+    public function getGames(): array
+    {
+        return array_merge($this->homeGames->toArray(), $this->awayGames->toArray());
     }
 }

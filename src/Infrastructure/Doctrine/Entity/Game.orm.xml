@@ -4,13 +4,11 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
         https://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Domain\Entity\Team">
+    <entity name="App\Domain\Entity\Game">
         <id name="id" type="uuid" column="id">
         </id>
-        <field name="name" column="name" type="string" length="255" nullable="false" unique="true"/>
-        <one-to-many field="players" target-entity="Player" mapped-by="team" />
-        <one-to-many field="homeGames" target-entity="Game" mapped-by="homeTeam" />
-        <one-to-many field="awayGames" target-entity="Game" mapped-by="awayTeam" />
-
+        <field name="name" column="name" type="string" length="255" nullable="false"/>
+        <many-to-one field="homeTeam" target-entity="Team" nullable="false"/>
+        <many-to-one field="awayTeam" target-entity="Team" nullable="false"/>
     </entity>
 </doctrine-mapping>

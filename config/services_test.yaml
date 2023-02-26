@@ -19,3 +19,7 @@ services:
     usecase.team.player.add:
         alias: App\UseCase\Team\Command\AddPlayer\UseCase
         public: true
+
+    usecase.game.create:
+        alias: App\UseCase\Game\Command\CreateGame\UseCase
+        public: true
