@@ -3,29 +3,37 @@
 namespace App\Tests\Functional\Team\Query;
 
 use App\Domain\Entity\Team;
-use App\UseCase\Team\Command\CreateTeam\Request;
 use App\UseCase\Team\Query\GetTeams\Request as RequestList;
 use App\UseCase\Team\Query\GetTeams\Response as ResponseList;
+use App\UseCase\Team\Query\GetTeams\UseCase;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Uid\Uuid;
 
 class TeamListTest extends KernelTestCase
 {
-    public function testTeamsListShouldBeEmpty(): void
+    private EntityManagerInterface|null $entityManager = null;
+    private UseCase|null $useCase = null;
+
+    protected function setUp(): void
     {
         $kernel = self::bootKernel();
 
-        /** @var EntityManagerInterface $entityManager */
-        $entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
-        $cn = $entityManager->getConnection();
+        /* @var EntityManagerInterface $entityManager */
+        $this->entityManager = $kernel->getContainer()->get('doctrine.orm.entity_manager');
+
+        $this->useCase = $kernel->getContainer()->get('usecase.team.list');
+    }
+
+    public function testTeamsListShouldBeEmpty(): void
+    {
+        $cn = $this->entityManager->getConnection();
         $cn->executeQuery('DELETE FROM game');
         $cn->executeQuery('DELETE FROM team');
 
-        $useCase = $kernel->getContainer()->get('usecase.team.list');
-
         $teamListRequest = new RequestList();
 
-        $response = ($useCase)($teamListRequest);
+        $response = ($this->useCase)($teamListRequest);
 
         $this->assertEmpty($response->getTeams());
         $this->assertInstanceOf(ResponseList::class, $response);
@@ -33,19 +41,14 @@ class TeamListTest extends KernelTestCase
 
     public function testListNotEmpty(): void
     {
-        $kernel = self::bootKernel();
-
-        $useCaseCreate = $kernel->getContainer()->get('usecase.team.create');
-        $useCaseList = $kernel->getContainer()->get('usecase.team.list');
-
-        // Insert a player
-        $teamCreateRequest = new Request('Guillaume RAINERI');
-        ($useCaseCreate)($teamCreateRequest);
+        $team = new Team(Uuid::v4(), 'name'.rand(0, 100));
+        $this->entityManager->persist($team);
+        $this->entityManager->flush();
 
         $teamListRequest = new RequestList();
 
         /** @var ResponseList $response */
-        $response = ($useCaseList)($teamListRequest);
+        $response = ($this->useCase)($teamListRequest);
 
         $this->assertNotEmpty($response->getTeams());
         $this->assertInstanceOf(Team::class, $response->getTeams()[0]);

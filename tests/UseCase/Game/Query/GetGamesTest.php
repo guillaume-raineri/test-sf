@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
+use Symfony\Component\Uid\Uuid;
 
 class GetGamesTest extends KernelTestCase
 {
@@ -34,7 +35,7 @@ class GetGamesTest extends KernelTestCase
         $this->assertSame(Command::SUCCESS, $r);
     }
 
-    public function testListGameSpecificTeamWithResults(): void
+    public function testListGamesSpecificTeamWithResults(): void
     {
         $team = $this->entityManager
             ->getRepository(Team::class)
@@ -49,7 +50,7 @@ class GetGamesTest extends KernelTestCase
         $this->assertSame(Command::SUCCESS, $r);
     }
 
-    public function testListGameSpecificTeamWithoutResult(): void
+    public function testListGamesSpecificTeamWithoutResult(): void
     {
         $team = $this->entityManager
             ->getRepository(Team::class)
@@ -62,5 +63,15 @@ class GetGamesTest extends KernelTestCase
 
         $this->assertStringContainsString('Found 0 games.', $this->commandTester->getDisplay());
         $this->assertSame(Command::SUCCESS, $r);
+    }
+
+    public function testListGamesFailureTeamNotFound(): void
+    {
+        $r = $this->commandTester->execute([
+            GetGamesCommand::ARGUMENT_TEAM_ID => Uuid::v4(),
+        ]);
+
+        $this->assertStringContainsString('Team not found.', $this->commandTester->getDisplay());
+        $this->assertSame(Command::FAILURE, $r);
     }
 }

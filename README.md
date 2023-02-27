@@ -32,5 +32,10 @@ When you want stop stack, use ```make stop```
 More commands are available with ```make ```
 
 ## Run tests
- - Run fixtures with `php bin/console doctrine:fixtures:load`
- - Run `./vendor/bin/simple-phpunit`
+
+- Firstly, load the fixtures : `php bin/console doctrine:fixtures:load` 
+
+- Then run the test suite with : `./vendor/bin/simple-phpunit`. 
+  - Available options : 
+    - `--testdox` to see the list of tests
+    - `--coverage-html=cov` will generate code coverage inside "cov" directory. You need to have xdebug enabled

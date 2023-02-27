@@ -20,6 +20,22 @@ services:
         alias: App\UseCase\Team\Command\AddPlayer\UseCase
         public: true
 
+    usecase.team.game.list:
+        alias: App\UseCase\Team\Query\GetTeamGames\UseCase
+        public: true
+
     usecase.game.create:
         alias: App\UseCase\Game\Command\CreateGame\UseCase
+        public: true
+
+    usecase.game.list:
+        alias: App\UseCase\Game\Query\GetGames\UseCase
+        public: true
+
+    repository.player:
+        alias: App\Infrastructure\Doctrine\Repository\PlayerRepository
+        public: true
+
+    repository.game:
+        alias: App\Infrastructure\Doctrine\Repository\GameRepository
         public: true
